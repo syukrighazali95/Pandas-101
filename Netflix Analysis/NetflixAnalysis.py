@@ -29,3 +29,13 @@ print("-----")
 print("What is the percentage of movies and tv shows available in Netflix?")
 showType = data["type"]
 print(showType)
+perMovies = len(data[data["type"] == "Movie"])/len(data) * 100
+perShows = len(data[data["type"] == "TV Show"])/len(data) * 100
+print(perMovies)
+print(perShows)
+labels = "Movies", "TV Shows"
+sizes = [perMovies, perShows]
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, explode=(0,0.1))
+plt.show()
+
