@@ -36,6 +36,19 @@ print(perShows)
 labels = "Movies", "TV Shows"
 sizes = [perMovies, perShows]
 fig1, ax1 = plt.subplots()
+ax1.set_title("Percentage of movies and tv shows in Netflix")
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, explode=(0,0.1))
 plt.show()
+print("-----")
+
+print("What is the top 10 categories in Netflix?")
+category = data["listed_in"].str.split(",")
+print(category)
+category = data["listed_in"].str.split(",",expand=True)
+print(category)
+# Removing whitespaces in categories
+for col in category.columns:
+    category[col] = category[col].str.strip()
+category_df = pd.DataFrame(category)
+print(category_df.values.tolist())
 
