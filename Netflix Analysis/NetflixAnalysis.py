@@ -85,24 +85,31 @@ plt.figure(figsize = (10,7))
 plt.title("Top 10 most common categories for TV Shows and Movies in Netflix")
 plt.xticks(rotation = 45, ha='right')
 plt.xlabel("Categories")
-plt.ylabel("Number of occurences")
+plt.ylabel("Number of shows")
 plt.bar(key, value, color='blue')
 # plt.show()
 
 ##############################################################
 
-print(data["duration"].str.rstrip("minSeaso"))
+print("Distribution of Netflix shows in minutes")
 duration_list = []
 for item in data["duration"]:
     tmp = item.split()
     # print(tmp[1])
     if tmp[1] == "min":
         duration_list.append(int(item.strip("min")))
-print(duration_list)
+# print(duration_list)
 distribution = pd.DataFrame(duration_list)
 plt.figure(figsize=(15,7))
 sns.distplot(distribution, color='red')
 plt.title("Distribution of Netflix Movie Duration in minutes")
+plt.xlabel('Duration')
+
+movie_hist = data[data["type"] == "Movie"]
+movie_hist["Duration"] = distribution
+# print(movie_hist)
+movie_hist.hist(column='Duration', bins=30, grid=False, alpha=0.7, edgecolor="black")
+plt.title("Histogram of Netflix Movie Duration in minutes")
 plt.xlabel('Duration')
 plt.show()
 
