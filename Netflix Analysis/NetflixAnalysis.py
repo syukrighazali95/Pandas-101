@@ -91,7 +91,7 @@ plt.bar(key, value, color='blue')
 
 ##############################################################
 
-print("Distribution of Netflix shows in minutes")
+print("Distribution of Netflix Movies in minutes")
 duration_list = []
 for item in data["duration"]:
     tmp = item.split()
@@ -102,14 +102,14 @@ for item in data["duration"]:
 distribution = pd.DataFrame(duration_list)
 plt.figure(figsize=(15,7))
 sns.distplot(distribution, color='red')
-plt.title("Distribution of Netflix Movie Duration in minutes")
+plt.title("Distribution of Netflix Movies Duration in minutes")
 plt.xlabel('Duration')
 
 movie_hist = data[data["type"] == "Movie"]
 movie_hist["Duration"] = distribution
 # print(movie_hist)
 movie_hist.hist(column='Duration', bins=30, grid=False, alpha=0.7, edgecolor="black")
-plt.title("Histogram of Netflix Movie Duration in minutes")
+plt.title("Histogram of Netflix Movies Duration in minutes")
 plt.xlabel('Duration')
 plt.show()
 
