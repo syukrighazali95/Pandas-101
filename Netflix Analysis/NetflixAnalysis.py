@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from itertools import chain
 from collections import Counter
+import seaborn as sns
 
 data = pd.read_csv("Dataset/netflix_titles.csv")
 print(data.shape)
@@ -42,7 +43,7 @@ sizes = [perMovies, perShows]
 fig1, ax1 = plt.subplots()
 ax1.set_title("Percentage of movies and tv shows in Netflix")
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, explode=(0,0.1))
-plt.show()
+# plt.show()
 print("-----")
 
 ##############################################################
@@ -80,12 +81,29 @@ key = list(common_categories.keys())
 value = list(common_categories.values())
 
 # Plot the graph
-plt.figure(figsize = (10,5))
+plt.figure(figsize = (10,7))
 plt.title("Top 10 most common categories for TV Shows and Movies in Netflix")
 plt.xticks(rotation = 45, ha='right')
 plt.xlabel("Categories")
 plt.ylabel("Number of occurences")
-plt.bar(key, value, color='black')
+plt.bar(key, value, color='blue')
+# plt.show()
+
+##############################################################
+
+print(data["duration"].str.rstrip("minSeaso"))
+duration_list = []
+for item in data["duration"]:
+    tmp = item.split()
+    # print(tmp[1])
+    if tmp[1] == "min":
+        duration_list.append(int(item.strip("min")))
+print(duration_list)
+distribution = pd.DataFrame(duration_list)
+plt.figure(figsize=(15,7))
+sns.distplot(distribution, color='red')
+plt.title("Distribution of Netflix Movie Duration in minutes")
+plt.xlabel('Duration')
 plt.show()
 
 ##############################################################
