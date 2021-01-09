@@ -1,9 +1,20 @@
 import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 from itertools import chain
 from collections import Counter
 import seaborn as sns
+
+li = [10, 20, 30, 40, 50]
+s = pd.Series
+
+
+
+
+
+
+#########################################################
 
 data = pd.read_csv("Dataset/netflix_titles.csv")
 print(data.shape)
@@ -83,7 +94,7 @@ value = list(common_categories.values())
 # Plot the graph
 plt.figure(figsize = (10,7))
 plt.title("Top 10 most common categories for TV Shows and Movies in Netflix")
-plt.xticks(rotation = 45, ha='right')
+plt.xticks(rotation = 45)
 plt.xlabel("Categories")
 plt.ylabel("Number of shows")
 plt.bar(key, value, color='blue')
@@ -100,17 +111,15 @@ for item in data["duration"]:
         duration_list.append(int(item.strip("min")))
 # print(duration_list)
 distribution = pd.DataFrame(duration_list)
+
 plt.figure(figsize=(15,7))
 sns.distplot(distribution, color='red')
 plt.title("Distribution of Netflix Movies Duration in minutes")
 plt.xlabel('Duration')
 
-movie_hist = data[data["type"] == "Movie"]
-movie_hist["Duration"] = distribution
-# print(movie_hist)
-movie_hist.hist(column='Duration', bins=30, grid=False, alpha=0.7, edgecolor="black")
+distribution.hist(column=0, bins=30, grid=False, alpha=0.7, edgecolor="black")
 plt.title("Histogram of Netflix Movies Duration in minutes")
-plt.xlabel('Duration')
+plt.xlabel('Duration in mins')
 plt.show()
 
 ##############################################################
