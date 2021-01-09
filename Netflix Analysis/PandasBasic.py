@@ -30,3 +30,16 @@ select_state = pd.Series(students_in_state, index=["Kuala_Lumpur", "Johor_Bahru"
 print(select_state)
 
 # Create pandas series from numpy arrays
+a = np.array(li)
+print(a)
+a = pd.Series(a)
+print(a)
+
+# Merging or concatenate between 2 series
+s1 = pd.Series([1,2,3,34,5])
+s2 = pd.Series([44,4,5.6,77,3])
+# Change the axis to change the concatenate direction 
+c1 = pd.concat([s1, s2], axis=0)
+print(c1)
+
+# Selections of series   
