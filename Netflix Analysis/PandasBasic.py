@@ -1,6 +1,10 @@
 import pandas as pd 
 import numpy as np
 
+#################
+# PANDAS SERIES #
+#################
+
 # Creating pandas series
 li = [10, 20, 30, 40, 50, 60]
 s = pd.Series(li)
@@ -69,3 +73,47 @@ print(s7[["first", "third"]])
 s8 = pd.Series([2,343,54,45,7])
 s8[0] = 6
 print(s8)
+
+####################
+# PANDAS DATAFRAME #
+####################
+
+# Attributes in DataFrame
+dic = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45]}
+df1 = pd.DataFrame(dic)
+print(df1)
+print(df1["No_devices"])
+print(df1.No_devices)
+
+l1 = [52,6,37,3,2,12,2,42,35]
+df2 = pd.DataFrame(l1,columns=["variable_name"]) 
+print(df2)
+
+arr = np.array(l1).reshape(3,3)
+print(arr)
+df3 = pd.DataFrame(arr, columns=["Var1","Var2","Var3"])
+print(df3)
+print(df3.axes)
+print(df3.shape)
+print(df3.ndim)
+print(df3.size)
+print(df3.columns)
+print(df3.index)
+print(df3.values)
+
+# Change column in DataFrame
+print(df3)
+print(df3.columns)
+df3.columns = ["col1", "col2", "col3"]
+print(df3)
+
+# Access rows in dataframe
+dic = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45], 'Age': [2,3,4]}
+df1 = pd.DataFrame(dic)
+print(df1)
+print(df1.iloc[0])
+print(df1.iloc[[0,2]]) # Select multiple rows
+print(df1.iloc[[0,2],2]) # Rows for specific column
+print(df1.iloc[[0,2],[1,2]]) # Rows for multiple columns
+print(df1.iloc[1:3])
+print(df1.iloc[1:3,2])
