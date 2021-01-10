@@ -178,4 +178,96 @@ print(df1[~(df1["No_devices"] > 30)])
 fil = df1.filter(items=["Name","Serial_no"])
 print(fil)
 
-# Filter with regex
+# Filter with regex for column that ends with e
+fil = df1.filter(regex='e$', axis=1)
+print(fil)
+
+# Adding rows using append
+print(df1)
+app1 = df1.append({"Name": "Dell"},ignore_index=True)
+print(app1)
+print(df1)
+app2 = df1.append({"Name":"Dell","No_devices":32,"Age":56,"Serial_no":"DHSDA03123"},ignore_index=True)
+print(app2)
+
+# Remove rows using index
+dp1 = df1.drop(index=2)
+print(dp1)
+cond1 = df1[df1["No_devices"]>30]
+print(cond1)
+dp2 = df1.drop(index=cond1.index)
+print(dp2)
+
+# Adding columns
+df1["Version"] = [14,32,42]
+print(df1)
+
+# Remove columns
+dp3 = df1.drop(columns=["Age", "No_devices"])
+print(dp3)
+dp4 = df1.drop(["Name","Version"],axis=1)
+print(dp4)
+
+# Combining 2 dataframes
+dic1 = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45], 'Age': [2,3,4], 'Serial_no': ["JSD1231231","DSH231234","ASD173455"]}
+dic2 = {'Name': ["Dell","Nokia", "Huawei"], 'No_devices': [34,44,22], 'Age': [3,7,4], 'Serial_no': ["DHSD02313","NSDSD1234","HSD123455"]}
+df1 = pd.DataFrame(dic1)
+df2 = pd.DataFrame(dic2)
+df3 = pd.concat([df1,df2])
+print(df3)
+df3 = pd.concat([df1,df2], ignore_index=True)
+print(df3)
+
+# Inner Join: Join matching values only. Different columns are removed
+dic1 = {'Name': ["Juniper","Cisco", "Arista"], 'Serial_no': ["JSD1231231","DSH231234","ASD173455"]}
+dic2 = {'Name': ["Dell","Nokia", "Huawei"], 'No_devices': [34,44,22], 'Age': [3,7,4], 'Serial_no': ["DHSD02313","NSDSD1234","HSD123455"]}
+df1 = pd.DataFrame(dic1)
+df2 = pd.DataFrame(dic2)
+df3 = pd.concat([df1,df2])
+print(df3)
+df3 = pd.concat([df1,df2], ignore_index=True, join="inner")
+print(df3)
+
+# dic3 = {'Department': ["IT","Account", "Management"]}
+# df3 = pd.DataFrame(dic3)
+# df4 = pd.concat([df1,df3])
+# print(df4)
+
+
+# Full join 
+df4 = pd.concat([df1,df2],join="outer")
+print(df4)
+
+# Left join
+df5 = pd.merge(df1,df2,how="left")
+print(df5)
+
+# Right join
+df6 = pd.merge(df1,df2,how="right")
+print(df6)
+
+# Merge many to many structure
+dic1 = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [50,34,45], 'Age': [2,3,4], 'Serial_no': ["JSD1231231","DSH231234","ASD173455"]}
+dic2 = {'Serial_no': ["JSD1231231","DSH231234","ASD173455"],'Department': ["IT","Account", "Management"], 'Team': ["abc","def", "ghi"] }
+df1 = pd.DataFrame(dic1)
+df2 = pd.DataFrame(dic2)
+df3 = pd.merge(df1,df2)
+print(df3)
+
+# Sort by values
+print(df1)
+df4 = df1.sort_values(by="No_devices")
+print(df4)
+df4 = df1.sort_values(by="No_devices", ascending=False)
+print(df4)
+# Sort by no of devices first and then sort by age
+df4 = df1.sort_values(by=["No_devices", "Age"])
+print(df4)
+df4 = df1.sort_values(by=["No_devices", "Age"], ascending=[True,False])
+print(df4)
+
+# Largest elements in column. N denotes the number of elements
+largest = df1["No_devices"].nlargest(2)
+smallest = df1["No_devices"].nsmallest(1)
+print(largest)
+print(smallest)
