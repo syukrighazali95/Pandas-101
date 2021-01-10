@@ -43,3 +43,29 @@ c1 = pd.concat([s1, s2], axis=0)
 print(c1)
 
 # Selections of series   
+s3 = pd.Series([12,3,23,3,5])
+print(s3[1])
+print(s3[0:3])
+print(s3[:2])
+print(s3[4:])
+print(s3[:-1])
+s4 = pd.Series([32,43,456,67,89], index=["first", "second", "third", "fourth", "fifth"])
+print(s4.index)
+print(s4.keys)
+print(list(s4.items()))
+
+#Queries in Pandas Series
+s5 = pd.Series([23,83,45,67,8])
+print(3 in s5)
+print(23 in s5)
+
+# Selecting multiple elements in Pandas Series
+s6 = pd.Series([23,344,56,89,5])
+print(s6[[2,4]])
+s7 = pd.Series([23,344,56,89,5], index=["first", "second", "third", "fourth", "fifth"])
+print(s7[["first", "third"]])
+
+# Update value in Series
+s8 = pd.Series([2,343,54,45,7])
+s8[0] = 6
+print(s8)
