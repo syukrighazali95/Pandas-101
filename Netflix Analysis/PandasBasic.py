@@ -271,3 +271,105 @@ largest = df1["No_devices"].nlargest(2)
 smallest = df1["No_devices"].nsmallest(1)
 print(largest)
 print(smallest)
+
+# Aggregation Functions
+dic1 = {'Name': ["Juniper","Cisco", "Arista", "Asus", "Huawei", "Dell"], 'No_devices': [50,34,45,65,23,12], 'Age': [2,3,4,3,5,3], 'Serial_no': ["JSD1231231","DSH231234","ASD173455", "ASD1231234", "HGSD03123", "DWQD031233"]}
+df1 = pd.DataFrame(dic1)
+print(df1.count())
+print(df1.mean())
+print(df1["Age"].mean())
+print(df1.median())
+print(df1["Age"].median())
+print(df1.sum())
+print(df1["Age"].sum())
+print(df1.min())
+print(df1["Age"].min())
+print(df1.max())
+print(df1["Age"].max())
+print(df1.std())
+print(df1["Age"].std())
+print(df1.std())
+print(df1["Age"].std())
+print(df1.var())
+print(df1["Age"].var())
+print(df1.describe())
+# Standard error of mean values
+print(df1.sem())
+
+# Grouping 
+dic1 = {'Name': ["Juniper","Cisco", "Arista", "Asus", "Huawei", "Dell"], 'No_devices': [50,34,45,65,23,12], 'Age': [2,3,4,3,5,3], 'Serial_no': ["JSD1231231","DSH231234","ASD173455", "ASD1231234", "HGSD03123", "DWQD031233"]}
+df1 = pd.DataFrame(dic1)
+device_age = df1.groupby("Age")
+print(device_age)
+threeYears = device_age.get_group(3)
+print(threeYears)
+print(df1[df1["Age"] == 3])
+print(df1.groupby("Age").mean())
+print(df1.groupby("Age").mean()["No_devices"])
+print(df1.groupby("Age")["No_devices"].mean())
+print(df1.groupby("Age")["No_devices"].describe())
+print(df1.groupby("Age")["No_devices"].agg(["mean", "max", "min"]))
+print(df1.groupby("Age").aggregate(["max", "min"]))
+
+# Transform operation
+def age_increase(x):
+    return x + 10
+
+print(df1["Age"])
+inc1 = df1["Age"].transform(age_increase)
+print(inc1)
+inc2 = df1["Age"].transform(lambda x:x+20)
+print(inc2)
+
+# Apply function
+dic1 = {'Name': ["Juniper","Cisco", "Arista", "Asus", "Huawei", "Dell"], 'No_devices': [50,34,45,65,23,12], 'Age': [2,3,4,3,5,3], 'Serial_no': ["JSD1231231","DSH231234","ASD173455", "ASD1231234", "HGSD03123", "DWQD031233"]}
+df1 = pd.DataFrame(dic1)
+print(df1["Name"].apply(len))
+inc2 = df1["Age"].apply(lambda x:x+15)
+print(inc2)
+# Elementwise for multiple column dataframe
+inc2 = df1[["Name","Serial_no"]].applymap(str.upper)
+print(inc2)
+
+# Map values and replace
+map1 = df1["Name"].map({"Arista": "Fortinet"})
+print(map1)
+print(df1)
+
+rep = df1["Name"].replace({"Arista": "Fortinet"})
+print(rep)
+
+# Missing values (NaN) - Data modified
+dic1 = {'Name': ["Juniper","Cisco", "Arista", "Asus", "Huawei", "Dell"], 'No_devices': [50,34,45,65,23,np.nan], 'Age': [2,3,np.nan,3,5,3], 'Serial_no': ["JSD1231231","DSH231234","ASD173455", "ASD1231234", None, "DWQD031233"]}
+df1 = pd.DataFrame(dic1)
+print(df1["Age"].isnull())
+age_null = df1[df1["Age"].isnull()]
+print(df1[df1["Age"].isnull()])
+fill = age_null.fillna(9)
+print(fill)
+fill = age_null.fillna(df1["Age"].mean())
+print(fill)
+
+# Drop missing values
+dropNaAll = df1.dropna()
+print(dropNaAll)
+# Drop columns with missing values
+dropNaCol = df1.dropna(axis="columns")
+print(dropNaCol)
+
+# Read csv files in pandas
+csv_data = pd.read_csv("Dataset/netflix_titles.csv")
+print(csv_data.head())
+
+# Read excel file in pandas
+excel_data = pd.read_excel("Dataset/netflix_titles.xlsx")
+print(excel_data.head())
+# Accessing second sheet in excel
+excel_data = pd.read_excel("Dataset/netflix_titles.xlsx", sheet_name="Second Sheets")
+print(excel_data.head())
+
+# Read json in pandas
+json_data = pd.read_json("Dataset/employee.json")
+print(json_data)
+print("---")
+print(json_data.loc[0]["employees"]["firstName"])
