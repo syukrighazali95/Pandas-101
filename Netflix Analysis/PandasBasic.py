@@ -117,3 +117,65 @@ print(df1.iloc[[0,2],2]) # Rows for specific column
 print(df1.iloc[[0,2],[1,2]]) # Rows for multiple columns
 print(df1.iloc[1:3])
 print(df1.iloc[1:3,2])
+
+# Using loc to access rows
+# Difference between loc and iloc - loc is label based and iloc is integer based
+print(df1)
+df1.loc[0]
+df1.loc[[0,2],"Age"]
+df1 = pd.DataFrame(dic, index=["a", "b", "c"])
+print(df1)
+print(df1.loc["a"])
+print(df1.loc[["a","c"]])
+print(df1.loc["b":])
+print(df1.loc["c":,"No_devices"])
+
+# Accessing columns in dataframe
+print(df1)
+print(df1.Age)
+print(df1["Age"])
+print(df1["Age"][0])
+
+# Assigning value to row
+print(df1)
+df1.iloc[2] = ["Huawei", "30", "3"]
+print(df1)
+
+# Assigning custom index using columns
+dic = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45], 'Age': [2,3,4], 'Serial_no': ["JSD1231231","DSH231234","HSD123455"]}
+df1 = pd.DataFrame(dic)
+print(df1)
+df1 = df1.set_index("Serial_no")
+print(df1)
+print(df1.loc["JSD1231231"])
+
+# Reset index 
+print(df1)
+df1.reset_index(inplace=True)
+print(df1)
+
+# Sorting index
+dic = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45], 'Age': [2,3,4], 'Serial_no': ["JSD1231231","DSH231234","HSD123455"]}
+df1 = pd.DataFrame(dic, index=[4,3,6])
+print(df1)
+df1.sort_index(inplace=True)
+print(df1)
+
+# Filtering 
+dic = {'Name': ["Juniper","Cisco", "Arista"], 'No_devices': [17,34,45], 'Age': [2,3,4], 'Serial_no': ["JSD1231231","DSH231234","HSD123455"]}
+df1 = pd.DataFrame(dic)
+print(df1["Name"] == "Juniper")
+print(df1[df1["Name"] == 'Cisco'])
+print(df1.loc[df1["Name"] == "Arista", "Serial_no"])
+
+# Filtering with arithmetic operations
+print(df1[df1["No_devices"] > 30])
+print(df1[(df1["No_devices"] > 30) & (df1["Age"] < 4)])
+print(df1[(df1["No_devices"] > 30) | (df1["Age"] < 4)])
+print(df1[~(df1["No_devices"] > 30)])
+
+# Filtering with filter() function
+fil = df1.filter(items=["Name","Serial_no"])
+print(fil)
+
+# Filter with regex
